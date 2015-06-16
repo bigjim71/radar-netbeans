@@ -134,7 +134,10 @@ public class IssueLocation {
         if(containedProjects != null) {
             for (Project subproject : containedProjects) {
                 SonarQubeProjectConfiguration subprojectInfo = SonarQubeProjectBuilder.getSubconfiguration(projectConfiguration, subproject);
-                if (subprojectInfo.getKey().toString().equals(key)) {
+                if (subprojectInfo.getKey().toString()
+                        .substring(
+                                subprojectInfo.getKey().toString().indexOf(":")+1)
+                        .equals(key.substring(key.indexOf(":")+1))) {
                     return subproject.getProjectDirectory();
                 }
             }
